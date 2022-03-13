@@ -1,0 +1,36 @@
+<table class="w-100 text-center">
+<thead class="m-2">
+    <tr class="text-white m-2" style="background-color: #3f51b5;">
+        <th scope="col m-2">#</th>
+        <th scope="col m-2">Nombre del producto</th>
+        <th scope="col m-2">Precio de compra</th>
+        <th scope="col m-2">Precio de venta</th>
+        <th scope="col m-2">Stock</th>
+        <th scope="col m-2">Categoria asignada</th>
+        <th scope="col m-2">Base de datos</th>
+        <th scope="col m-2">Acciones</th>
+
+      </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of articles;let indexOfelement=index;let ganancia">
+
+        <th scope="row">{{indexOfelement + 1}}</th>
+        <td>{{item.name}}</td>
+        <td>Q.{{item.price_buy.toFixed(2)}}</td>
+        <td>Q.{{item.price_sale.toFixed(2)}}</td>
+        <td>{{item.stock}}</td>
+        <td>{{item.category}}</td>
+        <td>{{item.database}}</td>
+
+        <td class="m-1">
+            <button mat-mini-fab (click)="selectOne(item,true)" color="primary"><mat-icon>edit</mat-icon></button>
+            <button mat-mini-fab (click)="selectOne(item,false)" color="warn"><mat-icon>delete</mat-icon></button>
+        </td>
+
+      </tr>
+  </tbody>
+</table>
+<div class="container text-center m-4">
+    <button (click)="selectAll(articles)" mat-raised-button  color="primary">Agregar productos</button>
+</div>

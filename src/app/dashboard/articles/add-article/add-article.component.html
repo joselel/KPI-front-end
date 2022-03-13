@@ -1,0 +1,79 @@
+<div class="container sticky-top">
+    <h4 class="text-center p-2">Nuevo articulo</h4><hr>
+</div>
+
+<div *ngIf="load" class="d-flex justify-content-center">
+  <mat-spinner></mat-spinner>
+</div>
+
+<form [formGroup]="formText">
+    <mat-form-field class="example-full-width w-50 w-md-100" appearance="fill">
+      <mat-label>Nombre de articulo</mat-label>
+      <input type="text" #name matInput placeholder="Ej. Camisa Formal" formControlName="name" maxlength="100" minlength="3" autocomplete="off" required>
+      <mat-hint align="end">{{name.value.length}} / 100</mat-hint>
+      <mat-error *ngIf="formText.hasError('required')">
+        Nombre es requerido <strong>required</strong>
+      </mat-error>
+    </mat-form-field><br>
+
+    <mat-form-field class="m-2" appearance="fill" floatLabel="always">
+      <mat-label>Precio de Compra</mat-label>
+      <input matInput type="number" class="example-right-align" formControlName="price_buy" placeholder="00.00" autocomplete="off">
+      <span matPrefix>Q&nbsp;</span>
+      <span matSuffix></span>
+    </mat-form-field>
+
+    <mat-form-field class="m-2" appearance="fill" floatLabel="always">
+      <mat-label>Precio de Compra</mat-label>
+      <input matInput type="number" class="example-right-align" formControlName="price_sale" placeholder="00.00" autocomplete="off">
+      <span matPrefix>Q&nbsp;</span>
+      <span matSuffix></span>
+    </mat-form-field>
+
+    <mat-form-field class="m-2 w-25" appearance="fill" style="display: flex;">
+      <mat-label>Stock de producto</mat-label>
+      <input type="number" matInput placeholder="Ej. 100" required formControlName="stock" autocomplete="off">
+    </mat-form-field>
+
+    <mat-form-field class="m-2 w-50" appearance="fill">
+      <mat-label>Categoria de producto</mat-label>
+      <mat-select formControlName="category">
+        <mat-option value="vestimenta">Vestimenta</mat-option>
+        <mat-option value="hogar">Hogar</mat-option>
+        <mat-option value="oficina">Oficina</mat-option>
+        <mat-option value="herramientas">Herramientas</mat-option>
+        <mat-option value="salud">Salud</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    
+</form>
+
+
+<form [formGroup]="formDatabases">
+  <p class="d-block">Donde almacenaras el producto?</p><hr><br>
+
+  <section class="example-section" [formGroup]="formDatabases" class="d-flex justify-content-between">
+    <p><mat-checkbox class="m-2" color="primary" formControlName="mysql">Tienda #1 ( MySQL )</mat-checkbox></p>
+    <p><mat-checkbox class="m-2" color="primary" formControlName="sqlsrv">Tienda #2 ( SQL Server )</mat-checkbox></p>
+    <p><mat-checkbox class="m-2" color="primary" formControlName="pgsql">Tienda #3 ( Postgre SQL )</mat-checkbox></p>
+  </section>
+  <hr>
+  <div class="container text-center">
+      <button *ngIf="articleMode!='edit'" [disabled]="formText.invalid" (click)="add()" mat-raised-button  color="primary">Guardar producto</button>
+      <button *ngIf="articleMode=='edit'" (click)="resetForms()" mat-raised-button  color="warn">Cancelar</button>
+      <button *ngIf="articleMode=='edit'" [disabled]="formText.invalid" (click)="addEdit()" mat-raised-button  color="primary">Editar el producto</button>
+
+    </div>
+  <hr>
+
+</form>
+
+<app-data-table 
+  *ngIf="articles.length > 0" 
+  [articles]="articles"
+  (articleEdit)="edit($event)"
+  (articleDelete)="delete($event)"
+  (allArticles)="save($event)">
+</app-data-table>
+

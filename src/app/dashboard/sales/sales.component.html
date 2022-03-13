@@ -1,0 +1,32 @@
+<mat-drawer-container class="example-container h-100" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side" opened>
+      
+      <mat-selection-list [multiple]="false">
+
+           <mat-list-option routerLink="/dashboard/ventas/nueva-venta">
+            Nueva venta
+           </mat-list-option>
+           <mat-divider></mat-divider>
+
+           <mat-list-option routerLink="/dashboard/ventas/base-datos">
+           Ventas por base de datos
+           </mat-list-option>
+           <mat-divider></mat-divider>
+
+           <mat-list-option routerLink="/dashboard/ventas/analisis">
+            Analisis de ventas
+           </mat-list-option>
+           <mat-divider></mat-divider>
+
+      </mat-selection-list>
+
+
+    </mat-drawer>
+    
+  
+    <div class="example-sidenav-content p-4">
+      <button type="button" mat-button (click)="drawer.toggle()" mat-fab color="primary"><mat-icon>tune</mat-icon></button>
+      <router-outlet></router-outlet>
+    </div>
+  
+  </mat-drawer-container>
